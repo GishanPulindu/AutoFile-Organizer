@@ -1,27 +1,42 @@
 from pathlib import Path
 import shutil
 
-# To track the created folders inside the directory
-created = []
-dir_name = {"Documents": (".docx", ".xlsx", ".pptx", ".pdf", ".txt"), "Images": (".jpg", ".png", ".jpeg"),
+
+dir_name = {"Documents": (".docx", ".xlsx", ".pptx", ".pdf", ".txt", ".csv", ".rtf"),
+                "Images": (".jpg", ".png", ".jpeg", ".gif"),
                 "Media": (".mp3", ".mp4", ".avi", ".wav"),
-                "Archive": (".zip", ".rar", ".7z"), "Other": (".html", ".exe")}
+                "Archive": (".zip", ".rar", ".7z")}
 
 # function for creation of directory
 def create_directory(loc,i):
     for name, ext in dir_name.items():
-        if i.suffix in ext:
-            if name not in created:
-                created.append(name)
-                folder = loc/name
-                folder.mkdir(parents=True, exist_ok=True)
+        if i.suffix.lower() in ext:
+            folder = loc/name
+            folder.mkdir(parents=True, exist_ok=True)
             return
+    # If the extension is unknown creates a folder as "Other"
+    folder = loc/"Other"
+    folder.mkdir(parents=True, exist_ok=True)
+
 
 # Function used to move files to the created folders in organization
 def move_file(l,i):
     for name, ext in dir_name.items():
-        if i.suffix in ext:
-            shutil.move(i, l/name/i.name)
+        if i.suffix.lower() in ext:
+            file = unique_filename(l, name, i)
+            shutil.move(i, file)
+            return
+    shutil.move(i, l/"Other"/i.name)
+
+# Function used to create unique filename if file already available using num incrementer
+def unique_filename(sys, folder, file):
+    counter = 1
+    path = sys/folder/file.name
+    while path.exists():
+        path = sys/folder/f"{file.stem}_{counter}{file.suffix}"
+        counter += 1
+    return path
+
 
 def main():
     # Get the location of the folder to be organized
