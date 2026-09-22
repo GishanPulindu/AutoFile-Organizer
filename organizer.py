@@ -2,10 +2,13 @@ from pathlib import Path
 import shutil
 
 
-dir_name = {"Documents": (".docx", ".xlsx", ".pptx", ".pdf", ".txt", ".csv", ".rtf"),
+dir_name = {"Documents": (".docx", ".xlsx", ".pptx", ".pdf", ".txt", ".csv", ".rtf", ".md", ".odt"),
                 "Images": (".jpg", ".png", ".jpeg", ".gif"),
-                "Media": (".mp3", ".mp4", ".avi", ".wav"),
-                "Archive": (".zip", ".rar", ".7z")}
+                "Audio": (".mp3", ".wav", ".m4a", ".flac", ".aac"),
+                "Video": (".mp4", ".avi", ".mov", ".mkv", ".webm"),
+                "Archive": (".zip", ".rar", ".7z"),
+                "Applications": (".exe", ".msi")}
+
 
 # function for creation of directory
 def create_directory(loc,i):
