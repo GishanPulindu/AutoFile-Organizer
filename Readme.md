@@ -1,4 +1,4 @@
-# 📌 Smart File Organizer
+# 📌 AutoFile Organizer
 
 This project is designed to organize files in a computer automatically without taking up hours of time, also demostrates the use of Pathlib & Shutil while handling common errors & complications in code.
 
@@ -59,7 +59,7 @@ This project is designed to organize files in a computer automatically without t
 
     ```
     git clone https://github.com/GishanPulindu/Smart-File-Organizer.git
-    cd File-Organizer
+    cd AutoFile-Organizer
     ```
 
 2. **Run the application**
