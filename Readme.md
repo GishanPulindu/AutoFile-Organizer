@@ -26,7 +26,8 @@ This project is designed to organize files in a computer automatically without t
 
 1. Enter a folder path
     The program asks the user to provide the path of the folder they want to organize.
-    Enter the path/ copy & paste as shwon below:
+    Enter the path
+     copy & paste as shown below:
         **C:\Users\name\Documents\folder_name**
 
 2. Validate the folder
@@ -64,7 +65,7 @@ This project is designed to organize files in a computer automatically without t
 2. **Run the application**
 
     ```
-    python Organizer.py
+    python Main_CLI.py
     ```
 
 ---
@@ -74,6 +75,7 @@ This project is designed to organize files in a computer automatically without t
     ```
     Smart-File-Organizer/
     │── Organizer.py
+    │── Main_CLI.py
     └── Readme.md
     ```
 ---
@@ -83,12 +85,13 @@ This project is designed to organize files in a computer automatically without t
 * Dry Run mode
 * Custom catergories
 * Recursive Scanning
+* GUI Interface
 
 ---
 
 ## 📌 Version
 
-**v1.0** – Basic file organizer with core functionality
+**v1.1** – Basic file organizer with core functionality & Dry Run functionality
 
 ---
 
