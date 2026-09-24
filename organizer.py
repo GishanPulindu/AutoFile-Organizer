@@ -2,79 +2,85 @@ from pathlib import Path
 import shutil
 
 
-dir_name = {"Documents": (".docx", ".xlsx", ".pptx", ".pdf", ".txt", ".csv", ".rtf", ".md", ".odt"),
-                "Images": (".jpg", ".png", ".jpeg", ".gif"),
-                "Audio": (".mp3", ".wav", ".m4a", ".flac", ".aac"),
-                "Video": (".mp4", ".avi", ".mov", ".mkv", ".webm"),
-                "Archive": (".zip", ".rar", ".7z"),
-                "Applications": (".exe", ".msi")}
+class FileOrganizer:
+
+    dir_name = {
+        "Documents": (".docx", ".xlsx", ".pptx", ".pdf", ".txt", ".csv", ".rtf", ".md", ".odt"),
+        "Images": (".jpg", ".png", ".jpeg", ".gif"),
+        "Audio": (".mp3", ".wav", ".m4a", ".flac", ".aac"),
+        "Video": (".mp4", ".avi", ".mov", ".mkv", ".webm"),
+        "Archive": (".zip", ".rar", ".7z"),
+        "Applications": (".exe", ".msi")
+    }
 
 
-# function for creation of directory
-def create_directory(loc,i):
-    for name, ext in dir_name.items():
-        if i.suffix.lower() in ext:
-            folder = loc/name
-            folder.mkdir(parents=True, exist_ok=True)
+    def __init__(self, location, dry_run=False):
+        self.location = Path(location)
+        self.dry_run = dry_run
+
+    # Method used for input validation
+    def validate_location(self):
+        if not self.location.exists():
+            print("This folder does not exist.")
+            return False
+        if not self.location.is_dir():
+            print("This is not a folder.")
+            return False
+        if not any(self.location.iterdir()):
+            print("This folder is empty.")
+            return False
+        return True
+
+    # Method used to get the category of folder
+    def get_category(self, file):
+        for name, extensions in self.dir_name.items():
+            if file.suffix.lower() in extensions:
+                return name
+        return "Other"
+
+    # Method used to create folders needed for organization
+    def create_directory(self, file):
+        folder = self.location / self.get_category(file)
+        if self.dry_run:
             return
-    # If the extension is unknown creates a folder as "Other"
-    folder = loc/"Other"
-    folder.mkdir(parents=True, exist_ok=True)
+        folder.mkdir(parents=True, exist_ok=True)
+        return
 
-
-# Function used to move files to the created folders in organization
-def move_file(l,i):
-    for name, ext in dir_name.items():
-        if i.suffix.lower() in ext:
-            file = unique_filename(l, name, i)
-            shutil.move(i, file)
+    # Method used to move files to respective folders
+    def move_file(self, file):
+        destination = self.unique_filename(self.get_category(file), file)
+        if self.dry_run:
+            print(f"[DRY RUN] WOULD MOVE: {file.name} -> {destination}")
             return
-    shutil.move(i, l/"Other"/i.name)
-
-# Function used to create unique filename if file already available using num incrementer
-def unique_filename(sys, folder, file):
-    counter = 1
-    path = sys/folder/file.name
-    while path.exists():
-        path = sys/folder/f"{file.stem}_{counter}{file.suffix}"
-        counter += 1
-    return path
-
-
-def main():
-    # Get the location of the folder to be organized
-    loc = input("Input the location of the folder: ")
-    if not loc:
-        print("No folder has been selected")
-        return
-    location = Path(loc)
-
-    if not location.exists():
-        print("This folder does not exist.")
-        return
-    if not location.is_dir():
-        print("This is not a folder.")
-        return
-    if not any(location.iterdir()):
-        print("This folder is empty.")
+        shutil.move(file, destination)
         return
 
-    print("Creating folders.....")
+    # Method handles filename conflicts
+    def unique_filename(self, folder, file):
+        counter = 1
+        path = self.location / folder / file.name
+        while path.exists():
+            path = self.location / folder / f"{file.stem}_{counter}{file.suffix}"
+            counter += 1
+        return path
 
-    for item in location.iterdir():
-        if item.is_file():
-            create_directory(location,item)
+    # Method that provides the main logic
+    def organize_folder(self):
 
-    print("Folders have been created!")
+        print("Creating folders.....")
 
-    print("Moving files.....")
+        for item in self.location.iterdir():
+            if item.is_file():
+                self.create_directory(item)
 
-    for item in location.iterdir():
-        if item.is_file():
-            move_file(location, item)
+        print("Folders have been created!")
 
-    print("Files moved to respective folders!")
+        print("Moving files.....")
+
+        for item in self.location.iterdir():
+            if item.is_file():
+                self.move_file(item)
+
+        print("Files moved to respective folders!")
 
 
-if __name__ == "__main__":
-    main()
