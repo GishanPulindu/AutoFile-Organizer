@@ -17,6 +17,7 @@ class FileOrganizer:
     def __init__(self, location, dry_run=False):
         self.location = Path(location)
         self.dry_run = dry_run
+        self.count_files = 0
 
     # Method used for input validation
     def validate_location(self):
@@ -67,20 +68,14 @@ class FileOrganizer:
     # Method that provides the main logic
     def organize_folder(self):
 
-        print("Creating folders.....")
-
         for item in self.location.iterdir():
             if item.is_file():
                 self.create_directory(item)
-
-        print("Folders have been created!")
-
-        print("Moving files.....")
+                self.count_files += 1
 
         for item in self.location.iterdir():
             if item.is_file():
                 self.move_file(item)
 
-        print("Files moved to respective folders!")
 
 
