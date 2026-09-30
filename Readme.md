@@ -1,4 +1,4 @@
-# 📌 AutoFile Organizer
+# 📌 AutoFile Organizer V1.0
 
 This project is designed to organize files in a computer automatically without taking up hours of time, also demostrates the use of Pathlib & Shutil while handling common errors & complications in code.
 
@@ -24,11 +24,8 @@ This project is designed to organize files in a computer automatically without t
 
 ## ⚙️ How It Works
 
-1. Enter a folder path
-    The program asks the user to provide the path of the folder they want to organize.
-    Enter the path
-     copy & paste as shown below:
-        **C:\Users\name\Documents\folder_name**
+1. Run the .py file through CMD or any terminal (pycharm terminal or vscode terminal)
+        **python Main_CLI.py your_file_location** (Ex:- C:\Users\Desktop\folder_name)
 
 2. Validate the folder
     It checks whether the provided path exists, is a directory, and contains files.
@@ -41,7 +38,7 @@ This project is designed to organize files in a computer automatically without t
         Archive
         Other
     *Might have changes in future*
-
+   
 4. Create category folders
     The required category folders are created inside the selected folder.
 
@@ -50,6 +47,13 @@ This project is designed to organize files in a computer automatically without t
 
 6. Handle duplicate filenames
     If a file with the same name already exists, the program creates a unique filename by adding a number to the filename instead of overwriting the existing file.
+
+
+**IF YOU WANT TO RUN A PREVIEW** (Your files won't be changed)
+    ```
+    Run python Main_CLI.py your_file_location --dry-run
+
+    ```
 
 ---
 
@@ -62,10 +66,12 @@ This project is designed to organize files in a computer automatically without t
     cd AutoFile-Organizer
     ```
 
-2. **Run the application**
+2. **Run the application (through cmd or any terminal)**
 
     ```
-    python Main_CLI.py
+    python Main_CLI.py --help (Will show the help menu)
+    python Main_CLI.py --dry-run (To run a preview)
+    python Main_CLI.py "File Location" (To run the script)
     ```
 
 ---
