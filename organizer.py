@@ -1,6 +1,6 @@
 from pathlib import Path
 import shutil
-
+from rich.console import Console
 
 class FileOrganizer:
 
@@ -18,17 +18,18 @@ class FileOrganizer:
         self.location = Path(location)
         self.dry_run = dry_run
         self.count_files = 0
+        self.console = Console()
 
     # Method used for input validation
     def validate_location(self):
         if not self.location.exists():
-            print("This folder does not exist.")
+            self.console.print("[bold yellow]Warning: This folder does not exist.[/bold yellow]")
             return False
         if not self.location.is_dir():
-            print("This is not a folder.")
+            self.console.print("[bold yellow]Warning: This is not a folder.[/bold yellow]")
             return False
         if not any(self.location.iterdir()):
-            print("This folder is empty.")
+            print("[bold yellow]Warning:This folder is empty.[/bold yellow]")
             return False
         return True
 
@@ -51,9 +52,10 @@ class FileOrganizer:
     def move_file(self, file):
         destination = self.unique_filename(self.get_category(file), file)
         if self.dry_run:
-            print(f"[DRY RUN] WOULD MOVE: {file.name} -> {destination}")
+            self.console.print(f"[yellow]>[/yellow] Would move [bold]{file.name}[/bold] -> [magenta]{destination}[/magenta]")
             return
         shutil.move(file, destination)
+        self.console.print(f"[green]✓[/green] Moved [bold]{file.name}[/bold] -> [light_sky_blue1]{destination}/[/light_sky_blue1]")
         return
 
     # Method handles filename conflicts
