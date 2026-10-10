@@ -9,12 +9,12 @@ This project is designed to organize files in a computer automatically without t
 ### Dry Run Preview
 Preview file movements before making changes.
 
-![Dry run preview](screenshots/Screenshot%20(295).png)
+![Dry run preview](Screenshots/Screenshot%20(295).png)
 
 ### ORganized Folders
 Files sorted into their respective catergories
 
-![Organized folders](screenshots/Screenshot%20(296).png)
+![Organized folders](Screenshots/Screenshot%20(296).png)
 
 ---
 
