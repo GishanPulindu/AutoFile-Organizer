@@ -4,6 +4,20 @@ This project is designed to organize files in a computer automatically without t
 
 ---
 
+## Screenshots
+
+### Dry Run Preview
+Preview file movements before making changes.
+
+![Dry run preview](screenshots/Screenshot%20(295).png)
+
+### ORganized Folders
+Files sorted into their respective catergories
+
+![Organized folders](screenshots/Screenshot%20(296).png)
+
+---
+
 ## 🚀 Features
 
 * Creation of folders
